@@ -131,11 +131,10 @@ public class FTP_Server implements Runnable{
 
                         //exit while loop
                         break exitThread;
-                        break;
                 }
             }
             catch (Exception e) {
-                System.out.println("Error while retrieving");
+                System.out.println("Error while running");
             }
         }
     }
@@ -145,10 +144,10 @@ public class FTP_Server implements Runnable{
         int port;
         port = Integer.parseInt(args[0]);
         System.out.println("Port Number: " + port);
-//        ServerSocket socketControl = new ServerSocket(port);
-//        while (true) {
-//            //blocks until client connects; starts connection on new thread
-//            (new Thread(new FTP_Server(socketControl.accept()))).start();
-//        }
+        ServerSocket socketControl = new ServerSocket(port);
+        while (true) {
+            //blocks until client connects; starts connection on new thread
+            (new Thread(new FTP_Server(socketControl.accept()))).start();
+        }
     }
 }
