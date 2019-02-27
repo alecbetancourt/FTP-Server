@@ -1,7 +1,7 @@
 import java.io.*;
 import java.net.Socket;
 
-public class Ftp_Client {
+public class FTP_Client {
 
     private Socket socket;
     private String hostName;
@@ -13,7 +13,7 @@ public class Ftp_Client {
     private boolean exists;
     private int status;
 
-    public Ftp_Client() {
+    public FTP_Client() {
         // Something goes here?
 
     }
@@ -112,7 +112,7 @@ public class Ftp_Client {
         return 0;
     }
     public static void main(String[] args) {
-        Ftp_Client client = new Ftp_Client();
+        FTP_Client client = new FTP_Client();
         int status;
 
         if (args.length < 1 || args.length > 3)
