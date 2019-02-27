@@ -102,21 +102,12 @@ public class FTP_Client {
         }
     }
 
-    public int quit() {
-        try {
-            out.println("QUIT");
-        } catch (Exception e) {
-            System.out.println("No connection");
-            return -1;
-        }
-        return 0;
-    }
     public static void main(String[] args) {
         FTP_Client client = new FTP_Client();
         int status;
 
         if (args.length < 1 || args.length > 3)
-            System.out.println("Invalid arguements");
+            System.out.println("Invalid arguments");
 
         else {
 
@@ -125,7 +116,7 @@ public class FTP_Client {
             {
                 case "CONNECT":
                     if (args.length != 3)
-                        System.out.println("Invalid arguements");
+                        System.out.println("Invalid arguments");
                     else {
                         try {
                             int pNum = Integer.parseInt(args[2]);
@@ -138,18 +129,19 @@ public class FTP_Client {
 
                 case "LIST":
                     System.out.println("two");
+                    client.list();
                     break;
 
-                case "RETREIVE":
+                case "RETRIEVE":
                     if (args.length != 3)
-                        System.out.println("Invalid arguements");
+                        System.out.println("Invalid arguments");
                     else
                         status = client.retrieve(args[1]);
                     break;
 
                 case "STORE":
                     if (args.length != 3)
-                        System.out.println("Invalid arguements");
+                        System.out.println("Invalid arguments");
                     else
                         status = client.store(args[2]);
                     break;
