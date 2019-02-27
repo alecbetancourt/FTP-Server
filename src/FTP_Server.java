@@ -9,17 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
-public static void main(String[] args) {
-    int port;
-    port = Integer.parseInt(args[0]);
-    ServerSocket socketControl = new ServerSocket(port);
-    while (true) {
-        //blocks until client connects; starts connection on new thread
-        (new Thread(new myftpserver(socketControl.accept()))).start();
-    }
-}
-
 public class FTP_Server implements Runnable{
     private final boolean DEBUG = false;
     private Path path;
