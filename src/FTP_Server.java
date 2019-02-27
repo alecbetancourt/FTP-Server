@@ -80,7 +80,6 @@ public class FTP_Server implements Runnable{
                         }
 
                         break;
-                        break;
                     case "retrieve":
                         //not a directory or file
                         if (Files.notExists(path.resolve(tokens.get(1)))) {
@@ -145,6 +144,7 @@ public class FTP_Server implements Runnable{
         }
     }
 
+    //might have to be moved up to top function, check runnable use
     public static void main(String[] args) {
         int port;
         port = Integer.parseInt(args[0]);
