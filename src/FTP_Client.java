@@ -6,6 +6,7 @@
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class FTP_Client {
 
@@ -45,7 +46,7 @@ public class FTP_Client {
     public int retrieve(String file) {
 
         try {
-            out.println("RETRIEVE " + file);
+            out.println("retrieve " + file);
         } catch (Exception e) {
             System.out.println("No connection");
             return -1;
@@ -77,7 +78,7 @@ public class FTP_Client {
 
     public int list() {
         try {
-            out.println("LIST");
+            out.println("list");
         } catch (Exception e) {
             System.out.println("No connection");
             return -1;
@@ -87,7 +88,7 @@ public class FTP_Client {
 
     public int store(String file) {
         try {
-            out.println("STORE " + file);
+            out.println("store " + file);
         } catch (Exception e) {
             System.out.println("No connection");
             return -1;
@@ -108,64 +109,70 @@ public class FTP_Client {
 
     public static void main(String[] args) {
         FTP_Client client = new FTP_Client();
+        Scanner scnr = new Scanner(System.in);
+
         int status;
 
-        if (args.length < 1 || args.length > 3)
-            System.out.println("Invalid arguments");
+        while (true) {
 
-        else {
+            String cmd = scnr.nextLine();
+            String[] commands = cmd.split(" ");
 
-            String command = args[0].toUpperCase();
-            switch(command)
-            {
-                case "CONNECT":
-                    if (args.length != 3)
-                        System.out.println("Invalid arguments");
-                    else {
-                        try {
-                            System.out.println("Attempting Connection");
-                            int pNum = Integer.parseInt(args[2]);
-                            status = client.connect(args[1], pNum);
-                        } catch (Exception e) {
-                            System.out.print("Could not convert port to number");
+            if (commands.length < 1 || commands.length > 3)
+                System.out.println("Invalid arguments");
+
+            else {
+
+                String command = commands[0].toUpperCase();
+                switch (command) {
+                    case "CONNECT":
+                        if (commands.length != 3)
+                            System.out.println("Invalid arguments");
+                        else {
+                            try {
+                                System.out.println("Attempting Connection");
+                                int pNum = Integer.parseInt(commands[2]);
+                                status = client.connect(commands[1], pNum);
+                            } catch (Exception e) {
+                                System.out.print("Could not convert port to number");
+                            }
                         }
-                    }
-                    break;
+                        break;
 
-                case "LIST":
-                    System.out.println("two");
-                    client.list();
-                    break;
+                    case "LIST":
+                        client.list();
+                        break;
 
-                case "RETRIEVE":
-                    if (args.length != 3)
-                        System.out.println("Invalid arguments");
-                    else
-                        status = client.retrieve(args[1]);
-                    break;
+                    case "RETRIEVE":
+                        if (commands.length != 2)
+                            System.out.println("Invalid arguments");
+                        else
+                            status = client.retrieve(commands[1]);
+                        break;
 
-                case "STORE":
-                    if (args.length != 3)
-                        System.out.println("Invalid arguments");
-                    else
-                        status = client.store(args[2]);
-                    break;
+                    case "STORE":
+                        if (commands.length != 2)
+                            System.out.println("Invalid arguments");
+                        else
+                            status = client.store(commands[2]);
+                        break;
 
-                case "QUIT":
-                    status = client.close();
-                    break;
+                    case "QUIT":
+                        status = client.close();
+                        break;
 
-                case "HELP":
-                    System.out.println("--- HELP MENU ---\n");
-                    System.out.println("CONNECT <server name/IP address> <server port>");
-                    System.out.println("LIST");
-                    System.out.println("RETRIEVE <filename>");
-                    System.out.println("STORE <filename>");
-                    System.out.println("QUIT\n");
-                    break;
+                    case "HELP":
+                        System.out.println("--- HELP MENU ---\n");
+                        System.out.println("CONNECT <server name/IP address> <server port>");
+                        System.out.println("LIST");
+                        System.out.println("RETRIEVE <filename>");
+                        System.out.println("STORE <filename>");
+                        System.out.println("QUIT\n");
+                        break;
 
-                default:
-                    System.out.println("No Matching Argument");
+                    default:
+                        System.out.println("No Matching Argument");
+                }
             }
         }
     }

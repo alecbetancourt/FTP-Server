@@ -90,12 +90,13 @@ public class FTP_Server implements Runnable {
                 switch (tokens.get(0)) {
                     case "list":
                         try {
+                            System.out.println("Listing");
                             DirectoryStream<Path> dirStream = Files.newDirectoryStream(path);
                             for (Path entry : dirStream)
                                 dStream.writeBytes(entry.getFileName() + "\n");
                             dStream.writeBytes("\n");
                         } catch (Exception e) {
-                            dStream.writeBytes("ls: failed to retrive contents" + "\n");
+                            dStream.writeBytes("ls: failed to retrieve contents" + "\n");
                             dStream.writeBytes("\n");
                         }
 
