@@ -1,3 +1,9 @@
+/**********************************************************************
+ * Filename: FTP_Client
+ *
+ * Authors: Alec Betancourt, Parker Petroff, and Randy Nguyen
+ **********************************************************************/
+
 import java.io.*;
 import java.net.Socket;
 

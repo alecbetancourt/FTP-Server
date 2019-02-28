@@ -1,3 +1,9 @@
+/**********************************************************************
+* Filename: FTP_Server
+*
+* Authors: Alec Betancourt, Parker Petroff, and Randy Nguyen
+**********************************************************************/
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -61,7 +67,6 @@ public class FTP_Server implements Runnable {
         } catch (Exception e) {
             System.out.println("Data Output Stream Error");
         }
-
         exitThread:
         while (true) {
             try {
