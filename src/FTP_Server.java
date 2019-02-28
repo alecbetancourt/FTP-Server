@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class FTP_Server implements Runnable{
+
+public class FTP_Server implements Runnable {
     private final boolean DEBUG = false;
     private Path path;
     private Socket controlSocket;
@@ -19,22 +20,47 @@ public class FTP_Server implements Runnable{
         path = Paths.get(System.getProperty("user.dir"));
     }
 
+    @Override
     public void run() {
+
         //add some threading/port/socket debug messages
         System.out.print("Thread id:" + Thread.currentThread().getId() + " of " + Thread.activeCount());
         System.out.println(" " + controlSocket.getRemoteSocketAddress().toString().substring(1));
 
+        // Set Reader and Stream objects to null before running.
+        InputStreamReader iStream = null;
+        BufferedReader reader = null;
+        DataInputStream byteStream = null;
+        OutputStream oStream = null;
+        DataOutputStream dStream = null;
+
         //add input/data/output streams and readers
         //Input
-        InputStreamReader iStream = new InputStreamReader(controlSocket.getInputStream());
-        BufferedReader reader = new BufferedReader(iStream);
+        try {
+            iStream = new InputStreamReader(controlSocket.getInputStream());
+            reader = new BufferedReader(iStream);
+        } catch (Exception e) {
+            System.out.println("Input Stream Error");
+        }
 
         //Data
-        DataInputStream byteStream = new DataInputStream(controlSocket.getInputStream());
+        try {
+            byteStream = new DataInputStream(controlSocket.getInputStream());
+        } catch (Exception e) {
+            System.out.println("Byte Stream Error");
+        }
 
         //Output
-        OutputStream oStream = controlSocket.getOutputStream();
-        DataOutputStream dStream = new DataOutputStream(oStream);
+        try {
+            oStream = controlSocket.getOutputStream();
+        } catch (Exception e) {
+            System.out.println("Output Stream Error");
+        }
+        try {
+            dStream = new DataOutputStream(oStream);
+        } catch (Exception e) {
+            System.out.println("Data Output Stream Error");
+        }
 
         exitThread:
         while (true) {
@@ -140,7 +166,7 @@ public class FTP_Server implements Runnable{
     }
 
     //might have to be moved up to top function, check runnable use
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         int port;
         port = Integer.parseInt(args[0]);
         System.out.println("Port Number: " + port);
