@@ -21,13 +21,13 @@ public class FTP_Client {
     public int connect(String hostName, int portNumber) {
         this.hostName = hostName;
         this.portNumber = portNumber;
-        // Step 1: Create a socket that connects to the above host and port number
+        // Create a socket that connects to the above host and port number
         try {
             socket = new Socket(this.hostName, this.portNumber);
-            // Step 2: Create a PrintWriter from the socket's output stream
+            // Create a PrintWriter from the socket's output stream
             // Use the autoFlush option
             out = new PrintWriter(socket.getOutputStream(), true);
-            // Step 3: Create a BufferedReader from the socket's input stream
+            // Create a BufferedReader from the socket's input stream
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         } catch (Exception e) {
             System.out.println("error");
@@ -37,8 +37,6 @@ public class FTP_Client {
     }
 
     public int retrieve(String file) {
-        // Step 4: Send an HTTP GET request via the PrintWriter.
-        // Remember to print the necessary blank line
 
         try {
             out.println("RETRIEVE " + file);
@@ -119,6 +117,7 @@ public class FTP_Client {
                         System.out.println("Invalid arguments");
                     else {
                         try {
+                            System.out.println("Attempting Connection");
                             int pNum = Integer.parseInt(args[2]);
                             status = client.connect(args[1], pNum);
                         } catch (Exception e) {

@@ -24,10 +24,10 @@ public class FTP_Server implements Runnable {
     public void run() {
 
         //add some threading/port/socket debug messages
-        System.out.print("Thread id:" + Thread.currentThread().getId() + " of " + Thread.activeCount());
+        System.out.print("Thread id: " + Thread.currentThread().getId() + " of " + Thread.activeCount());
         System.out.println(" " + controlSocket.getRemoteSocketAddress().toString().substring(1));
 
-        // Set Reader and Stream objects to null before running.
+        // Initialize Reader and Stream objects to null before running.
         InputStreamReader iStream = null;
         BufferedReader reader = null;
         DataInputStream byteStream = null;
@@ -173,7 +173,7 @@ public class FTP_Server implements Runnable {
         ServerSocket socketControl = new ServerSocket(port);
         while (true) {
             //blocks until client connects; starts connection on new thread
-            (new Thread(new FTP_Server(socketControl.accept()))).start();
+            new Thread(new FTP_Server(socketControl.accept())).start();
         }
     }
 }
